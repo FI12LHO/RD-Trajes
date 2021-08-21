@@ -5,14 +5,24 @@
 const CSRF = ($('meta[name="__token"]')) ? $('meta[name="__token"]').attr('content') : null;
 
 /**
+ * Constante que guardar o id do usuario.
+ * @const {string} USER
+ */
+const USER = ($('meta[name="__user"')) ? $('meta[name="__user"]').attr('content') : null;
+
+/**
  * Funcao responsavel por adicionar item ao carrinho.
- * @param {string} code 
- * @param {string} id
+ * @param {string} code - Codigo do produto
  * @returns {null}
  */
-function insertIntoShoppingCart(code, id) {
+function insertIntoShoppingCart(code) {
     if (CSRF == '' || CSRF == null || !CSRF) {
         console.log('ERROR: CSRF token is invalid or does not exist.');
+        return null;
+    }
+
+    if (USER == '' || USER == null || !USER) {
+        console.log('ERROR: Unknown user.');
         return null;
     }
 
@@ -25,8 +35,8 @@ function insertIntoShoppingCart(code, id) {
 
     // Definindo corpo da requisicao.
     var params = {
-        'code': code,
-        'id': id,
+        'product_code': code,
+        'user_id': USER,
     }
 
     xhr.send(JSON.stringify(params));
@@ -34,11 +44,9 @@ function insertIntoShoppingCart(code, id) {
     // Validando resposta da requisicao.
     xhr.onload = function() {
         if (xhr.status != 200) {
-            alert(`Error ${xhr.status}: ${xhr.statusText}`); 
+            console.log(`Error ${xhr.status}: ${xhr.statusText}`); 
         
-        } else { 
-            // show the result
-            alert(`Done, got ${xhr.response.length} bytes`);
+        } else {
             console.log(xhr.response);
         
         }
@@ -49,13 +57,17 @@ function insertIntoShoppingCart(code, id) {
 
 /**
  * Funcao responsavel por remover item do carrinho.
- * @param {string} code 
- * @param {string} id
+ * @param {string} code - Codigo do produto.
  * @returns {null}
  */
-function deleteFromShoppingCart(code, id) {
+function deleteFromShoppingCart(code) {
     if (CSRF == '' || CSRF == null || !CSRF) {
         console.log('ERROR: CSRF token is invalid or does not exist.');
+        return null;
+    }
+
+    if (USER == '' || USER == null || !USER) {
+        console.log('ERROR: Unknown user.');
         return null;
     }
 
@@ -68,8 +80,8 @@ function deleteFromShoppingCart(code, id) {
 
     // Definindo corpo da requisicao.
     var params = {
-        'code': code,
-        'id': id,
+        'product_code': code,
+        'user_id': USER,
     }
 
     xhr.send(JSON.stringify(params));
@@ -77,11 +89,9 @@ function deleteFromShoppingCart(code, id) {
     // Validando resposta da requisicao.
     xhr.onload = function() {
         if (xhr.status != 200) {
-            alert(`Error ${xhr.status}: ${xhr.statusText}`); 
+            console.log(`Error ${xhr.status}: ${xhr.statusText}`); 
         
-        } else { 
-            // show the result
-            alert(`Done, got ${xhr.response.length} bytes`);
+        } else {
             console.log(xhr.response);
         
         }
@@ -89,3 +99,38 @@ function deleteFromShoppingCart(code, id) {
 
     return null;
 }
+
+/**
+ * Funcao responsavel por requisitar e retornar todos os items do carrinho.
+ * @returns {object}
+ */
+function getAllItemsFromCart() {
+    if (USER == '' || USER == null || !USER) {
+        console.log('ERROR: Unknown user.');
+        return null;
+    }
+
+    let data = [];
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', `http://localhost:8000/cart/show/${USER}`);
+
+    // Definindo cabecalho da requisicao.
+    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+    xhr.send();
+
+    // Validando resposta da requisicao.
+    xhr.onload = function() {
+        if (xhr.status != 200) {
+            console.log(`Error ${xhr.status}: ${xhr.statusText}`); 
+        
+        } else {
+            let response = JSON.parse(xhr.response).data;
+            console.log(response);
+            data = response;
+            
+        }
+    };
+
+    return data;
+ }

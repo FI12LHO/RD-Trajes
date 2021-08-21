@@ -44,8 +44,8 @@ Route::group(['prefix' => 'products'], function () {
 });
 
 Route::group(['prefix' => 'cart'], function () {
-    Route::get('/', [cartController::class, 'index']);
-    Route::get('/create', [cartController::class, 'create']);
-    Route::get('/edit', [cartController::class, 'edit']);
-    Route::delete('/delete', [cartController::class, 'delete']);
+    Route::get('/{id}', [cartController::class, 'index']);
+    Route::get('/show/{id}', [cartController::class, 'show']);
+    Route::post('/create', [cartController::class, 'store']);
+    Route::delete('/delete', [cartController::class, 'destroy']);
 });
