@@ -7,6 +7,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+
+use function PHPUnit\Framework\isEmpty;
 
 /**
  * @author Marlom Marques
@@ -105,5 +108,25 @@ class User extends Authenticatable
 
             User::create($data);
         }
+    }
+
+    /**
+     * Metodo responsavel por fazer "login" do usuario.
+     * Efeteua uma busca na tabela e retorna os dados especificos condicionados pelos parametros.
+     * @param string $email - Valor que condiciona a busca dentro do banco de dados.
+     * @param string $password - Valor que condiciona a busca dentro do banco de dados.
+     * @return array $user - Dados do usuario.
+     */
+    static function singIn($email, $password) {
+        $user = DB::table('users')
+            ->where('email', $email)
+            ->where('password', $password)
+            ->get('*')->first();
+
+        if (!isset($user)) {
+            return json_encode(['error' => 'Unknown user.', 'body' => [$email, $password]]);
+        }
+
+        return $user;
     }
 }

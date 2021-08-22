@@ -29,13 +29,13 @@ Route::post('/test/request', function () {
 });
 
 Route::group(['prefix' => 'user'], function () {
-    Route::get('/login', [userController::class, 'show']);
+    Route::get('/login', [userController::class, 'login']);
 
-    Route::get('/register', [userController::class, 'show']);
+    Route::get('/register', [userController::class, 'register']);
 
-    Route::post('/login', [userController::class, 'show']);
+    Route::post('/login', [userController::class, 'signIn']);
 
-    Route::post('/register', [userController::class, 'show']);
+    Route::post('/register', [userController::class, 'signUp']);
 });
 
 Route::group(['prefix' => 'products'], function () {

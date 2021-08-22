@@ -6,11 +6,6 @@
         <meta name="__token" content="{{ csrf_token() }}">
         <meta name="__user" content="1">
 
-        <!-- Scripts -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script src="{{ asset('assets/js/shoppingCart.js') }}"></script>
-        <!-- Scripts -->
-
         <title>Laravel</title>
 
         <!-- Fonts -->
@@ -108,6 +103,16 @@
                     </div>
                 </div>
 
+                <div>
+                    <form>
+                        <input key='nome' type="text" name="name" id="input_name" placeholder="Nome" required><br>
+                        <input key='e-mail' type="text" name="e-mail" id="input_email" placeholder="E-mail" required><br>
+                        <input key='senha' type="text" name="password" id="input_password" placeholder="Senha" required><br>
+                        <textarea key='comentario' name="comment" id="txt_comment" cols="30" rows="10"></textarea><br>
+                        <button>Submit</button>
+                    </form>
+                </div>
+
                 <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
                     <div class="text-center text-sm text-gray-500 sm:text-left">
                         <div class="flex items-center">
@@ -135,5 +140,11 @@
                 </div>
             </div>
         </div>
+
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="{{ asset('assets/js/shoppingCart.js') }}"></script>
+        <script src="{{ asset('assets/js/validateForm.js') }}"></script>
+        <!-- Scripts -->
     </body>
 </html>
