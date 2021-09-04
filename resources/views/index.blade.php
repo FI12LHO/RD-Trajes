@@ -17,20 +17,7 @@
     <!-- Scripts -->
 </head>
 <body>
-    <main>
-        <img src="{{ asset('assets/images/product1.jpeg') }}" alt="Product"
-        onclick="openPopup('product1')">
-        <img src="{{ asset('assets/images/product2.jpeg') }}" alt="Product"
-            onclick="openPopup('product2')">
-        <img src="{{ asset('assets/images/product3.jpeg') }}" alt="Product"
-            onclick="openPopup('product3')">
-        <img src="{{ asset('assets/images/product4.jpeg') }}" alt="Product"
-            onclick="openPopup('product4')">
-        <img src="{{ asset('assets/images/product5.jpeg') }}" alt="Product"
-            onclick="openPopup('product5')">
-        <img src="{{ asset('assets/images/product6.jpeg') }}" alt="Product"
-            onclick="openPopup('product6')">
-    </main>
+    <main></main>
     
     <!-- Popup -->
     <div class="popup-container" id="popup-container">
