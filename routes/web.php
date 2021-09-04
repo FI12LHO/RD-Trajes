@@ -20,14 +20,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/test', function () {
-    return view('welcome');
-});
-
-Route::post('/test/request', function () {
-    return json_encode(['msg' => 'Hello World!!']);
-});
-
 Route::group(['prefix' => 'user'], function () {
     Route::get('/login', [userController::class, 'login']);
 

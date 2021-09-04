@@ -32,7 +32,10 @@ class userController extends Controller
 
         $post = $request -> post();
 
-        $user = User::singIn($post['email'], $post['password']);
+        $user = User::singIn(
+            strtolower($post['email']), 
+            strtolower($post['password'])
+        );
         return $user;
     }
 
@@ -68,15 +71,15 @@ class userController extends Controller
         $post = $request -> post();
 
         $data = [
-            'name' => $post['name'],
-            'email' => $post['email'],
+            'name' => strtolower($post['name']),
+            'email' => strtolower($post['email']),
             'password' => $post['password'],
             'cpf' => $post['cpf'],
             'phone' => ($post['phone']) ? $post['phone'] : null,
-            'address' => ($post['address']) ? $post['address'] : null,
-            'city' => ($post['city']) ? $post['city'] : null,
-            'state' => ($post['state']) ? $post['state'] : null,
-            'country' => ($post['country']) ? $post['country'] : null,
+            'address' => ($post['address']) ? strtolower($post['address']) : null,
+            'city' => ($post['city']) ? strtolower($post['city']) : null,
+            'state' => ($post['state']) ? strtolower($post['state']) : null,
+            'country' => ($post['country']) ? strtolower($post['country']) : null,
         ];
         
         try {
