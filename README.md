@@ -15,7 +15,7 @@ Para executar o projeto, será necessário ter instalado:
 
 Para iniciar o projeto é necessario somente clonar o repositorio no diretorio escolhido.  
 `$ cd "diretorio escolhido"`  
-`$ git clone https://github.com/FI12LHO/Oficina-2.0.git`
+`$ git clone https://github.com/FI12LHO/RD-Trajes.git`
 
 ### Construção  
 
